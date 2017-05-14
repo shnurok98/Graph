@@ -224,6 +224,13 @@ void CMFCApplication1View::OnDraw(CDC* pDC)
 		//DrawLine(pDC, GreenPEN, zaz);
 		//SetPoint(pDC, BlackPEN, zaz);
 		pDC->MoveTo(CENTER.X, CENTER.Y);
+
+		zaz.X = -R;
+
+		zaz.Y = sqrt(R*R - R*R);
+		CalcCoords(zaz, &zaz, pRECT);
+		OnPlane(zaz, CENTER, &zaz);
+		pDC->MoveTo(zaz.X, zaz.Y);
 		for (double i = -R; i < R; i += 0.1) {
 			zaz.X = i;
 			
