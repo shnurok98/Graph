@@ -174,6 +174,10 @@ void CMFCApplication1Doc::OnSetpar()
 		m_cPointY.RemoveAll();
 		m_cPointX.Append(dlg.m_fx);
 		m_cPointY.Append(dlg.m_fy);
+		m_crColorDlg1 = dlg.m_crColorDlg1;
+		m_crColorDlg2 = dlg.m_crColorDlg1;
+		m_iDlgP = dlg.m_iDlgP1;
+		m_iDlgL = dlg.m_iDlgL1;
 		nDlg = 1;
 		action();
 	}
@@ -323,6 +327,8 @@ void CMFCApplication1Doc::OnSetParam2()
 		m_cPointY.Append(dlg.m_fy);
 		m_dDocStep = dlg.m_dstep;
 		nDlg = 2;
+		//m_crColorDlg1 = dlg.m_crColorDlg1;
+		//m_crColorDlg2 = dlg.m_crColorDlg1;
 		action();
 	}
 }

@@ -28,4 +28,8 @@ public:
 	CArray<double, double> m_fy;
 	//afx_msg void OnLbnSelchangeList2();
 	//CListBox m_list;
+	COLORREF m_crColorDlg1;
+	COLORREF m_crColorDlg2;
+	int m_iDlgP1;
+	int m_iDlgL1;
 };

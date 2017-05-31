@@ -16,6 +16,10 @@
 #define IDC_COMBO1                      1009
 #define IDC_LIST2                       1010
 #define IDC_BUTTON1                     1011
+#define IDC_MFCCOLORBUTTON1             1012
+#define IDC_MFCCOLORBUTTON2             1013
+#define IDC_EDIT2                       1014
+#define IDC_EDITT2                      1014
 #define ID_32771                        32771
 #define ID_SETPAR                       32772
 #define ID_32773                        32773
@@ -24,9 +28,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        315
+#define _APS_NEXT_RESOURCE_VALUE        316
 #define _APS_NEXT_COMMAND_VALUE         32774
-#define _APS_NEXT_CONTROL_VALUE         1012
+#define _APS_NEXT_CONTROL_VALUE         1015
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

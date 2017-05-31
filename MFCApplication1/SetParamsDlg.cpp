@@ -16,6 +16,8 @@ IMPLEMENT_DYNAMIC(CSetParamsDlg, CDialog)
 CSetParamsDlg::CSetParamsDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(IDD_DIALOG1, pParent)
 	
+	, m_iDlgP1(0)
+	, m_iDlgL1(0)
 {
 
 }
@@ -30,6 +32,10 @@ void CSetParamsDlg::DoDataExchange(CDataExchange* pDX)
 	//  DDX_Text(pDX, IDC_EDITSTEP, m_dStep);
 	//  DDV_MinMaxDouble(pDX, m_dStep, 0.1000, DBL_MAX);
 	//DDX_Control(pDX, IDC_LIST2, m_list);
+	DDX_Text(pDX, IDC_MFCCOLORBUTTON1, m_crColorDlg1);
+	DDX_Text(pDX, IDC_MFCCOLORBUTTON2, m_crColorDlg2);
+	DDX_Text(pDX, IDC_EDITT2, m_iDlgP1);
+	DDX_Text(pDX, IDC_EDITT, m_iDlgL1);
 }
 
 

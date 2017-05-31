@@ -23,6 +23,10 @@ public:
 	CArray<double, double> m_cPointY;
 	CArray<double, double> m_cPointXi;
 	CArray<double, double> m_cPointYi;
+	COLORREF m_crColorDlg1;
+	COLORREF m_crColorDlg2;
+	int m_iDlgP;
+	int m_iDlgL;
 	int nDlg;
 
 // Операции
