@@ -11,6 +11,7 @@
 
 #include "MFCApplication1Doc.h"
 #include "SetParamsDlg.h"
+#include "SetParam2Dlg.h"
 #include "afxtempl.h"
 #include <propkey.h>
 
@@ -24,6 +25,7 @@ IMPLEMENT_DYNCREATE(CMFCApplication1Doc, CDocument)
 
 BEGIN_MESSAGE_MAP(CMFCApplication1Doc, CDocument)
 	ON_COMMAND(ID_SETPAR, &CMFCApplication1Doc::OnSetpar)
+	ON_COMMAND(ID_32773, &CMFCApplication1Doc::OnSetParam2)
 END_MESSAGE_MAP()
 
 
@@ -32,7 +34,7 @@ END_MESSAGE_MAP()
 CMFCApplication1Doc::CMFCApplication1Doc()
 {
 	// TODO: добавьте код для одноразового вызова конструктора
-	m_dDocStep = 0.1f;
+	m_dDocStep = 0.001f;
 	//m_cPointX.RemoveAll();
 	//m_cPointY.RemoveAll();
 }
@@ -54,6 +56,7 @@ BOOL CMFCApplication1Doc::OnNewDocument()
 		//ctime(0);
 		m_dY[i] = rand() % 99;
 	}
+	
 	return TRUE;
 }
 
@@ -166,14 +169,156 @@ void CMFCApplication1Doc::OnSetpar()
 {
 	// TODO: добавьте свой код обработчика команд
 	CSetParamsDlg dlg;
-	dlg.m_dStep = m_dDocStep;
 	if (dlg.DoModal() == IDOK) {
 		m_cPointX.RemoveAll();
 		m_cPointY.RemoveAll();
-		m_dDocStep = dlg.m_dStep;
 		m_cPointX.Append(dlg.m_fx);
 		m_cPointY.Append(dlg.m_fy);
-		
+		nDlg = 1;
+		action();
 	}
 	//m_cPointX.GetAt(1);
+}
+
+void CMFCApplication1Doc::action()
+{
+	if (nDlg == 1) {
+		m_cPointXi.RemoveAll();
+		m_cPointYi.RemoveAll();
+		for (int i = m_cPointX[0]; i <= m_cPointX[m_cPointX.GetSize() - 1]; i++)
+		{
+			m_cPointYi.Add(polinom(i));
+			m_cPointXi.Add(i);
+		}
+	}
+	else {
+		m_cPointXi.RemoveAll();
+		m_cPointYi.RemoveAll();
+		double maxx, maxy, minx, miny;
+		maxx = m_cPointX.GetAt(0);
+		for (int i = 1; i < m_cPointX.GetSize(); i++)
+		{
+			if (maxx<m_cPointX.GetAt(i))
+				maxx = m_cPointX.GetAt(i);
+		}
+		maxy = m_cPointY.GetAt(0);
+		for (int i = 1; i < m_cPointY.GetSize(); i++)
+		{
+			if (maxy<m_cPointY.GetAt(i))
+				maxy = m_cPointY.GetAt(i);
+		}
+
+		minx = m_cPointX.GetAt(0);
+		for (int i = 1; i < m_cPointX.GetSize(); i++)
+		{
+			if (minx>m_cPointX.GetAt(i))
+				minx = m_cPointX.GetAt(i);
+		}
+		miny = m_cPointY.GetAt(0);
+		for (int i = 1; i < m_cPointX.GetSize(); i++)
+		{
+			if (miny>m_cPointY.GetAt(i))
+				miny = m_cPointY.GetAt(i);
+		}
+
+		double x0, y0, R, SumD, SumF;
+
+		x0 = (maxx + minx) / 2;
+		y0 = (maxy + miny) / 2;
+
+		R = 0;
+		X = minx;
+		Y = miny;
+		SumD = m_dDocStep*m_dDocStep*m_cPointX.GetSize();
+		do
+		{
+			R += m_dDocStep;
+			SumF = 0;
+			for (int i = 0; i < m_iNum; i++)
+			{
+				SumF += ((m_cPointX[i] - x0)*(m_cPointX[i] - x0) + (m_cPointY[i] - y0)*(m_cPointY[i] - y0) - R*R);
+			}
+
+
+		} while (SumF > SumD);
+
+		do
+		{
+			X += m_dDocStep;
+			SumF = 0;
+			for (int i = 0; i < m_cPointX.GetSize(); i++)
+			{
+				SumF += ((m_cPointX[i] - X)*(m_cPointX[i] - X) + (m_cPointY[i] - y0)*(m_cPointY[i] - y0) - R*R);
+			}
+
+
+		} while (SumF > SumD);
+
+		do
+		{
+			Y += m_dDocStep;
+			SumF = 0;
+			for (int i = 0; i < m_cPointX.GetSize(); i++)
+			{
+				SumF += ((m_cPointX[i] - X)*(m_cPointX[i] - X) + (m_cPointY[i] - Y)*(m_cPointY[i] - Y) - R*R);
+			}
+
+
+		} while (SumF > SumD);
+
+		double xf, yf;
+		double PI = 3.14;
+		for (double i = 0; i <= 360; i += 5)
+		{
+			xf = R*cos(i * PI / 180) + X;
+			yf = R*sin(i * PI / 180) + Y;
+
+			m_cPointXi.Add(xf);
+			m_cPointYi.Add(yf);
+		}
+
+
+	}
+}
+
+double CMFCApplication1Doc::polinom(double x)
+{
+	CArray<double, double> m_fCl;
+	double l = 1, L = 0;
+
+	for (int i = 0; i < m_cPointX.GetSize(); i++)
+	{
+		for (int j = 0; j < m_cPointX.GetSize(); j++)
+		{
+			if (i != j)
+			{
+				l *= (x - m_cPointX[j]) / (m_cPointX[i] - m_cPointX[j]);
+			}
+		}
+		m_fCl.Add(l);
+		l = 1;
+	}
+
+	for (int i = 0; i < m_cPointX.GetSize(); i++)
+	{
+		L += m_cPointY[i] * m_fCl[i];
+	}
+	return L;
+}
+
+
+void CMFCApplication1Doc::OnSetParam2()
+{
+	// TODO: добавьте свой код обработчика команд
+	CSetParam2Dlg dlg;
+	dlg.m_dstep = m_dDocStep;
+	if (dlg.DoModal() == IDOK) {
+		m_cPointX.RemoveAll();
+		m_cPointY.RemoveAll();
+		m_cPointX.Append(dlg.m_fx);
+		m_cPointY.Append(dlg.m_fy);
+		m_dDocStep = dlg.m_dstep;
+		nDlg = 2;
+		action();
+	}
 }

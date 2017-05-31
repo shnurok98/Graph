@@ -137,20 +137,20 @@ void CMFCApplication1View::OnDraw(CDC* pDC)
 	pDC->LineTo(pRECT.right, CENTER.Y);
 	pDC->MoveTo(CENTER.X, 0);
 	pDC->LineTo(CENTER.X, pRECT.bottom);
-
-	if (m_pDoc->m_cPointX.GetCount() > 0) {
+	
+	if (m_pDoc->m_cPointXi.GetCount() > 0) {
 		FCOORD pt, scpt;
-		pt.X = m_pDoc->m_cPointX[0];
-		pt.Y = -m_pDoc->m_cPointY[0];
+		pt.X = m_pDoc->m_cPointXi[0];
+		pt.Y = -m_pDoc->m_cPointYi[0];
 		CalcCoords(pt, &scpt, pRECT);
 		//scpt.X += CENTER.X;
 		//scpt.Y += CENTER.Y;
 		OnPlane(scpt, CENTER, &scpt);
 		pDC->MoveTo(scpt.X, scpt.Y);
 		SetPoint(pDC, BlackPEN, scpt);
-		for (int i = 1; i < m_pDoc->m_cPointX.GetCount(); i++) {
-			pt.X = m_pDoc->m_cPointX[i];
-			pt.Y = -m_pDoc->m_cPointY[i];
+		for (int i = 1; i < m_pDoc->m_cPointXi.GetCount(); i++) {
+			pt.X = m_pDoc->m_cPointXi[i];
+			pt.Y = -m_pDoc->m_cPointYi[i];
 			CalcCoords(pt, &scpt, pRECT);
 			//pDC->LineTo(scpt.X + CENTER.X, scpt.Y + CENTER.Y);
 			//scpt.X += CENTER.X;
@@ -159,6 +159,34 @@ void CMFCApplication1View::OnDraw(CDC* pDC)
 			SetPoint(pDC, BlackPEN, scpt);
 			DrawLine(pDC, BluePEN, scpt);
 		}
+
+		
+		pt.X = m_pDoc->m_cPointX[0];
+		pt.Y = -m_pDoc->m_cPointY[0];
+		CalcCoords(pt, &scpt, pRECT);
+		//scpt.X += CENTER.X;
+		//scpt.Y += CENTER.Y;
+		OnPlane(scpt, CENTER, &scpt);
+		pDC->MoveTo(scpt.X, scpt.Y);
+		//SetPoint(pDC, BlackPEN, scpt);
+		for (int i = 1; i < m_pDoc->m_cPointX.GetCount(); i++) {
+			pt.X = m_pDoc->m_cPointX[i];
+			pt.Y = -m_pDoc->m_cPointY[i];
+			CalcCoords(pt, &scpt, pRECT);
+			//pDC->LineTo(scpt.X + CENTER.X, scpt.Y + CENTER.Y);
+			//scpt.X += CENTER.X;
+			//scpt.Y += CENTER.Y;
+			OnPlane(scpt, CENTER, &scpt);
+			SetPoint(pDC, RedPEN, scpt);
+			//DrawLine(pDC, BluePEN, scpt);
+		}
+		
+		pt.X = m_pDoc->X;
+		pt.Y = -m_pDoc->Y;
+		CalcCoords(pt, &scpt, pRECT);
+		OnPlane(scpt, CENTER, &scpt);
+		SetPoint(pDC, BluePEN, scpt);
+		
 		/*
 		OX = 1.0*m_pDoc->m_cPointX.GetCount() / pRECT.right;
 		if (m_pDoc->m_Rpnt) {
@@ -174,6 +202,7 @@ void CMFCApplication1View::OnDraw(CDC* pDC)
 				st = end;
 			}
 		}*/
+		/*
 		double max = 0;
 		double b = 0;
 		double R = 0;
@@ -255,6 +284,7 @@ void CMFCApplication1View::OnDraw(CDC* pDC)
 		OnPlane(zaz, CENTER, &zaz);
 		SetPoint(pDC, RedPEN, zaz);
 		DrawLine(pDC, RedPEN, zaz);
+		*/
 	}
 	else {
 		int * Ar = new int[NumPoints];
@@ -273,7 +303,7 @@ void CMFCApplication1View::OnDraw(CDC* pDC)
 		}
 	}
 
-
+	
 	//SelectObject(*pDC, GPEN);
 	/*
 	радиус точки
@@ -295,12 +325,12 @@ void CMFCApplication1View::CalcCoords(FCOORD cord, FCOORD *screen, RECT pRECT)
 	//double Oy = 
 	double MaxOX = 0;
 	double MaxOY = 0;
-	for (int i = 0; i < m_pDoc->m_cPointX.GetCount(); i++) {
-		if (fabs(m_pDoc->m_cPointX[i]) > MaxOX) {
-			MaxOX = fabs(m_pDoc->m_cPointX[i]);
+	for (int i = 0; i < m_pDoc->m_cPointXi.GetCount(); i++) {
+		if (fabs(m_pDoc->m_cPointXi[i]) > MaxOX) {
+			MaxOX = fabs(m_pDoc->m_cPointXi[i]);
 		}
-		if (fabs(m_pDoc->m_cPointY[i]) > MaxOY) {
-			MaxOY = fabs(m_pDoc->m_cPointY[i]);
+		if (fabs(m_pDoc->m_cPointYi[i]) > MaxOY) {
+			MaxOY = fabs(m_pDoc->m_cPointYi[i]);
 		}
 	}
 	double OX = (pRECT.right / 2) / MaxOX;

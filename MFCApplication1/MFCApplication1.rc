@@ -141,10 +141,8 @@ BEGIN
     BEGIN
         MENUITEM "&О проекте MFCApplication1...", ID_APP_ABOUT
     END
-    POPUP "Мое меню"
-    BEGIN
-        MENUITEM "Задать параметры...",         ID_SETPAR
-    END
+    MENUITEM "Интерполяция",                ID_SETPAR
+    MENUITEM "Апроксимация",                ID_32773
 END
 
 
@@ -190,14 +188,33 @@ END
 
 IDD_DIALOG1 DIALOGEX 0, 0, 309, 177
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Dialog"
+CAPTION "Интерполяция"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "ОК",IDOK,198,156,50,14
     PUSHBUTTON      "Отмена",IDCANCEL,252,156,50,14
     PUSHBUTTON      "Импорт",IDC_IMPORTBTN,232,28,50,14
-    EDITTEXT        IDC_EDITSTEP,41,15,114,14,ES_AUTOHSCROLL
-    LTEXT           "Шаг",IDC_STATIC,21,18,15,8
+    EDITTEXT        IDC_EDITT,92,42,114,14,ES_AUTOHSCROLL
+    LTEXT           "Толщина линий",IDC_STATIC,17,43,53,8
+    LTEXT           "Цвет линий",IDC_STATIC,27,71,40,8
+    LTEXT           "Цвет точек заданных Вами",IDC_STATIC,21,94,94,8
+    LTEXT           "Размер точек заданных Вами",IDC_STATIC,18,113,100,8
+END
+
+IDD_DIALOG2 DIALOGEX 0, 0, 309, 176
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Апроксимация"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "ОК",IDOK,198,155,50,14
+    PUSHBUTTON      "Отмена",IDCANCEL,252,155,50,14
+    PUSHBUTTON      "Импорт",IDC_BUTTON1,191,33,50,14
+    LTEXT           "Точность",IDC_STATIC,25,33,32,8
+    EDITTEXT        IDC_EDIT1,83,34,40,14,ES_AUTOHSCROLL
+    LTEXT           "Цвет точек заданных Вами",IDC_STATIC,19,75,94,8
+    LTEXT           "Размер точек заданных Вами",IDC_STATIC,20,59,100,8
+    LTEXT           "Цвет интегрированных линий",IDC_STATIC,15,116,103,8
+    LTEXT           "Толщина интегрированных линий",IDC_STATIC,16,93,116,8
 END
 
 
@@ -263,6 +280,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 170
     END
+
+    IDD_DIALOG2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 169
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -273,6 +298,11 @@ END
 //
 
 IDD_DIALOG1 AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+IDD_DIALOG2 AFX_DIALOG_LAYOUT
 BEGIN
     0
 END

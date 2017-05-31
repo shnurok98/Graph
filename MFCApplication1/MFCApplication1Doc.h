@@ -18,8 +18,12 @@ public:
 	double m_dX[30];
 	double m_dY[30];
 	double m_dDocStep;
+	double X, Y;
 	CArray<double, double> m_cPointX;
 	CArray<double, double> m_cPointY;
+	CArray<double, double> m_cPointXi;
+	CArray<double, double> m_cPointYi;
+	int nDlg;
 
 // Операции
 public:
@@ -53,4 +57,7 @@ protected:
 #endif // SHARED_HANDLERS
 public:
 	afx_msg void OnSetpar();
+	void action();
+	double polinom(double x);
+	afx_msg void OnSetParam2();
 };

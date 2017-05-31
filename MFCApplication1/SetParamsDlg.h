@@ -23,7 +23,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnBnClickedImportbtn();
-	double m_dStep;
+//	double m_dStep;
 	CArray<double, double> m_fx;
 	CArray<double, double> m_fy;
 	//afx_msg void OnLbnSelchangeList2();

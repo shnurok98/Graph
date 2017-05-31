@@ -15,7 +15,7 @@ IMPLEMENT_DYNAMIC(CSetParamsDlg, CDialog)
 
 CSetParamsDlg::CSetParamsDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(IDD_DIALOG1, pParent)
-	, m_dStep(0)
+	
 {
 
 }
@@ -27,8 +27,8 @@ CSetParamsDlg::~CSetParamsDlg()
 void CSetParamsDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
-	DDX_Text(pDX, IDC_EDITSTEP, m_dStep);
-	DDV_MinMaxDouble(pDX, m_dStep, 0.1000, DBL_MAX);
+	//  DDX_Text(pDX, IDC_EDITSTEP, m_dStep);
+	//  DDV_MinMaxDouble(pDX, m_dStep, 0.1000, DBL_MAX);
 	//DDX_Control(pDX, IDC_LIST2, m_list);
 }
 
@@ -45,7 +45,7 @@ END_MESSAGE_MAP()
 
 void CSetParamsDlg::OnBnClickedImportbtn()
 {
-	//UpdateData();
+	UpdateData(TRUE);
 	// TODO: добавьте свой код обработчика уведомлений
 	/*Диалог открытия файла*/
 	CFileDialog fileDialog(TRUE);	//параметр конструктора указывает на тип диалога (save/open)
@@ -66,19 +66,14 @@ void CSetParamsDlg::OnBnClickedImportbtn()
 		}*/
 		while (fgets(str, 100, fl) != NULL) {
 			if (sscanf_s(str, "%lf %lf", &x, &y) == 2) {
-				m_fx.Add(x);
-				m_fy.Add(y);
+				m_fx.Add(x*20);
+				m_fy.Add(y*20);
 			}
 			else {
 				AfxMessageBox(_T("Ошибка чтения файла"));
 				return;
 			}
 		}
-		
-		int g = m_fx.GetSize();
-		CString A;
-		A.Format(L"%i", g);
-		MessageBox(A);
 		
 		
 		//AfxMessageBox(fileDialog.GetPathName());  //GetPathName() возвращает имя и адрес выбранного файла
