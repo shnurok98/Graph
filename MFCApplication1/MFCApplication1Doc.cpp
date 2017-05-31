@@ -34,7 +34,7 @@ END_MESSAGE_MAP()
 CMFCApplication1Doc::CMFCApplication1Doc()
 {
 	// TODO: добавьте код для одноразового вызова конструктора
-	m_dDocStep = 0.001f;
+	m_dDocStep = 0.001;
 	//m_cPointX.RemoveAll();
 	//m_cPointY.RemoveAll();
 }
@@ -241,28 +241,32 @@ void CMFCApplication1Doc::action()
 
 
 		} while (SumF > SumD);
-
+		int d1=0;
 		do
 		{
+			d1++;
 			X += m_dDocStep;
 			SumF = 0;
 			for (int i = 0; i < m_cPointX.GetSize(); i++)
 			{
 				SumF += ((m_cPointX[i] - X)*(m_cPointX[i] - X) + (m_cPointY[i] - y0)*(m_cPointY[i] - y0) - R*R);
 			}
-
+			if (d1 > 2000000 * m_dDocStep)
+				break;
 
 		} while (SumF > SumD);
-
+		d1 = 0;
 		do
 		{
+			d1++;
 			Y += m_dDocStep;
 			SumF = 0;
 			for (int i = 0; i < m_cPointX.GetSize(); i++)
 			{
 				SumF += ((m_cPointX[i] - X)*(m_cPointX[i] - X) + (m_cPointY[i] - Y)*(m_cPointY[i] - Y) - R*R);
 			}
-
+			if (d1 > 2000000 * m_dDocStep)
+				break;
 
 		} while (SumF > SumD);
 
