@@ -9,6 +9,8 @@
 #include "MFCApplication1.h"
 #endif
 
+#include "MainFrm.h"
+#include "MFCApplication1View.h"
 #include "MFCApplication1Doc.h"
 #include "SetParamsDlg.h"
 #include "SetParam2Dlg.h"
@@ -168,6 +170,8 @@ void CMFCApplication1Doc::Dump(CDumpContext& dc) const
 void CMFCApplication1Doc::OnSetpar()
 {
 	// TODO: добавьте свой код обработчика команд
+	CMFCApplication1View *pV1;
+	pV1 = (CMFCApplication1View*)((CMainFrame*)AfxGetMainWnd())->GetActiveView();
 	CSetParamsDlg dlg;
 	if (dlg.DoModal() == IDOK) {
 		m_cPointX.RemoveAll();
@@ -175,13 +179,15 @@ void CMFCApplication1Doc::OnSetpar()
 		m_cPointX.Append(dlg.m_fx);
 		m_cPointY.Append(dlg.m_fy);
 		m_crColorDlg1 = dlg.m_crColorDlg1;
-		m_crColorDlg2 = dlg.m_crColorDlg1;
+		m_crColorDlg2 = dlg.m_crColorDlg2;
 		m_iDlgP = dlg.m_iDlgP1;
 		m_iDlgL = dlg.m_iDlgL1;
 		nDlg = 1;
+		if (m_cPointX.GetSize()>0)
 		action();
 	}
-	//m_cPointX.GetAt(1);
+	pV1->Invalidate(TRUE);
+	m_cPointX.GetAt(1);
 }
 
 void CMFCApplication1Doc::action()
@@ -226,9 +232,12 @@ void CMFCApplication1Doc::action()
 		}
 
 		double x0, y0, R, SumD, SumF;
+	
 
 		x0 = (maxx + minx) / 2;
 		y0 = (maxy + miny) / 2;
+
+
 
 		R = 0;
 		X = minx;
@@ -318,6 +327,8 @@ double CMFCApplication1Doc::polinom(double x)
 void CMFCApplication1Doc::OnSetParam2()
 {
 	// TODO: добавьте свой код обработчика команд
+	CMFCApplication1View *pV;
+	pV = (CMFCApplication1View*)((CMainFrame*)AfxGetMainWnd())->GetActiveView();
 	CSetParam2Dlg dlg;
 	dlg.m_dstep = m_dDocStep;
 	if (dlg.DoModal() == IDOK) {
@@ -327,8 +338,12 @@ void CMFCApplication1Doc::OnSetParam2()
 		m_cPointY.Append(dlg.m_fy);
 		m_dDocStep = dlg.m_dstep;
 		nDlg = 2;
-		//m_crColorDlg1 = dlg.m_crColorDlg1;
-		//m_crColorDlg2 = dlg.m_crColorDlg1;
-		action();
+		m_crColorDlg1 = dlg.m_crColorDlg1;
+		m_crColorDlg2 = dlg.m_crColorDlg2;
+		m_iDlgP = dlg.m_iDlgP1;
+		m_iDlgL = dlg.m_iDlgL1;
+		if (m_cPointX.GetSize()>0)
+			action();
+		pV->Invalidate(TRUE);
 	}
 }

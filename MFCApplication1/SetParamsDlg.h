@@ -32,4 +32,5 @@ public:
 	COLORREF m_crColorDlg2;
 	int m_iDlgP1;
 	int m_iDlgL1;
+	afx_msg void OnBnClickedOk();
 };

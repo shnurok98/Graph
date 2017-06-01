@@ -25,4 +25,9 @@ public:
 	CArray<double, double> m_fx;
 	CArray<double, double> m_fy;
 	double m_dstep;
+	int m_iDlgP1;
+	int m_iDlgL1;
+	COLORREF m_crColorDlg1;
+	COLORREF m_crColorDlg2;
+	afx_msg void OnBnClickedOk();
 };

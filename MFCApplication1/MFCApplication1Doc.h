@@ -64,4 +64,5 @@ public:
 	void action();
 	double polinom(double x);
 	afx_msg void OnSetParam2();
+	
 };

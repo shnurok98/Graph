@@ -16,8 +16,8 @@ IMPLEMENT_DYNAMIC(CSetParamsDlg, CDialog)
 CSetParamsDlg::CSetParamsDlg(CWnd* pParent /*=NULL*/)
 	: CDialog(IDD_DIALOG1, pParent)
 	
-	, m_iDlgP1(0)
-	, m_iDlgL1(0)
+	, m_iDlgP1(3)
+	, m_iDlgL1(2)
 {
 
 }
@@ -43,6 +43,7 @@ BEGIN_MESSAGE_MAP(CSetParamsDlg, CDialog)
 	ON_BN_CLICKED(IDC_IMPORTBTN, &CSetParamsDlg::OnBnClickedImportbtn)
 
 	//ON_LBN_SELCHANGE(IDC_LIST2, &CSetParamsDlg::OnLbnSelchangeList2)
+	ON_BN_CLICKED(IDOK, &CSetParamsDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
 
@@ -95,3 +96,11 @@ void CSetParamsDlg::OnLbnSelchangeList2()
 	// TODO: добавьте свой код обработчика уведомлений
 }
 */
+
+void CSetParamsDlg::OnBnClickedOk()
+{
+	// TODO: добавьте свой код обработчика уведомлений
+	CDialog::OnOK();
+	m_crColorDlg1 = ((CMFCColorButton*)GetDlgItem(IDC_MFCCOLORBUTTON1))->GetColor();
+	m_crColorDlg2 = ((CMFCColorButton*)GetDlgItem(IDC_MFCCOLORBUTTON2))->GetColor();
+}

@@ -99,6 +99,10 @@ void CMFCApplication1View::OnDraw(CDC* pDC)
 	HPEN    BluePEN = CreatePen(PS_SOLID, 2, BLU);
 	HPEN    WhitePEN = CreatePen(PS_SOLID, 3, WHT);
 	HPEN	BlackPEN = CreatePen(PS_SOLID, 2, BLK);
+	
+	
+	HPEN    PENp = CreatePen(PS_SOLID, m_pDoc->m_iDlgP, m_pDoc->m_crColorDlg2);
+	HPEN    PENl = CreatePen(PS_SOLID, m_pDoc->m_iDlgL, m_pDoc->m_crColorDlg1);
 
 	RECT    pRECT = { 0 };
 	FCOORD   end = { 0 };
@@ -156,8 +160,8 @@ void CMFCApplication1View::OnDraw(CDC* pDC)
 			//scpt.X += CENTER.X;
 			//scpt.Y += CENTER.Y;
 			OnPlane(scpt, CENTER, &scpt);
-			SetPoint(pDC, BlackPEN, scpt);
-			DrawLine(pDC, BluePEN, scpt);
+			SetPoint(pDC, PENl, scpt);
+			DrawLine(pDC, PENl, scpt);
 		}
 
 		
@@ -177,7 +181,7 @@ void CMFCApplication1View::OnDraw(CDC* pDC)
 			//scpt.X += CENTER.X;
 			//scpt.Y += CENTER.Y;
 			OnPlane(scpt, CENTER, &scpt);
-			SetPoint(pDC, RedPEN, scpt);
+			SetPoint(pDC, PENp, scpt);
 			//DrawLine(pDC, BluePEN, scpt);
 		}
 		
@@ -185,7 +189,7 @@ void CMFCApplication1View::OnDraw(CDC* pDC)
 		pt.Y = -m_pDoc->Y;
 		CalcCoords(pt, &scpt, pRECT);
 		OnPlane(scpt, CENTER, &scpt);
-		SetPoint(pDC, BluePEN, scpt);
+		SetPoint(pDC, PENl, scpt);
 		
 		/*
 		OX = 1.0*m_pDoc->m_cPointX.GetCount() / pRECT.right;

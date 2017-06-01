@@ -1,7 +1,7 @@
 
 // MFCApplication1View.h : интерфейс класса CMFCApplication1View
 //
-
+#include"MFCApplication1Doc.h"
 #pragma once
 struct FCOORD {
 	float X, Y;
